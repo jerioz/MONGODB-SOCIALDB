@@ -112,6 +112,27 @@ const UserController = {
       console.error(error)
     }
   },
+  async likeUser(req, res){
+    try {
+      const user = await User.findByIdAndUpdate(req.params._id,
+        {$push: {likes: req.user._id}},
+        {new:true})
+        res.send(user)  
+    } catch (error) {
+      res.status(500).send({message: 'There is a problem with your like'})
+    }
+  },
+  async removeLikeUser(req, res){
+    try {
+      const user = await User.findByIdAndUpdate(req.params._id,
+        {$pull: {likes: req.user._id}},
+        {new:true})
+        res.send(user)  
+    } catch (error) {
+      res.status(500).send({message: 'There is a problem with your remove like'})
+    }
+  }
+
 
     
 }

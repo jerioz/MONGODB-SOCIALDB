@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'age is required']
     },
+    likes: [],
     image: String,
     confirmed: Boolean,
     tokens: [],
