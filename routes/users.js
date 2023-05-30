@@ -14,5 +14,7 @@ router.get('/getUserByName/:name', UserController.getUserByName)
 router.get('/getUserById/:_id', UserController.getUserById)
 router.put('/updateUserid/:_id', authentication, upload.single('image'), UserController.updateUserImg)
 router.get('/confirm/:emailToken', UserController.confirm )
+router.put('/likeUser/:_id', authentication, UserController.likeUser)
+router.delete('/removeLikeUser/:_id', authentication, UserController.removeLikeUser)
 
 module.exports = router
