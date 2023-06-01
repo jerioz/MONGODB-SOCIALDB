@@ -128,8 +128,11 @@ const UserController = {
   async removeLikeUser(req, res){
     try {
       const user = await User.findByIdAndUpdate(req.params._id,
-        {$pull: {likes: req.user._id}},
+        {$pull: {followers: req.user._id}},
         {new:true})
+        await User.findByIdAndUpdate(req.user._id,
+          {$pull: {likes: req.params._id}},
+          {new:true})
         res.send(user)  
     } catch (error) {
       res.status(500).send({message: 'There is a problem with your remove like'})
