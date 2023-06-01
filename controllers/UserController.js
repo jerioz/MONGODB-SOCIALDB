@@ -117,8 +117,8 @@ const UserController = {
       const user = await User.findByIdAndUpdate(req.params._id,
         {$push: {followers: req.user._id}},
         {new:true})
-        await User.findByIdAndUpdate(req.params._id,
-          {$push: {likes: req.params_id}},
+        await User.findByIdAndUpdate(req.user._id,
+          {$push: {likes: req.params._id}},
           {new:true})
         res.send(user)  
     } catch (error) {
