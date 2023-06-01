@@ -134,7 +134,19 @@ const UserController = {
     } catch (error) {
       res.status(500).send({message: 'There is a problem with your remove like'})
     }
-  }
+  },
+  async getUserLoginFollower(req, res) {
+    try {
+      const userLogin = req.user._id
+      const user = await User.find(userLogin).populate('followers')
+      if(!user) {
+        return res.status(404).send({message: 'user not found'})
+      }
+      res.send(user)
+    } catch (error) {
+      console.error(error)
+    }
+  },
 
 
     
