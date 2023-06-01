@@ -106,7 +106,7 @@ const UserController = {
     try {
       const token = req.params.emailToken
     const payload = jwt.verify(token, process.env.JWT_SECRET)
-      await User.findOne({email: payload.email}, {confirmed:true})
+      await User.updateOne({email: payload.email}, {confirmed:true})
       res.status(201).send( "user confirmed successfully" );
     } catch (error) {
       console.error(error)
@@ -115,8 +115,11 @@ const UserController = {
   async likeUser(req, res){
     try {
       const user = await User.findByIdAndUpdate(req.params._id,
-        {$push: {likes: req.user._id}},
+        {$push: {followers: req.user._id}},
         {new:true})
+        await User.findByIdAndUpdate(req.params._id,
+          {$push: {likes: req.params_id}},
+          {new:true})
         res.send(user)  
     } catch (error) {
       res.status(500).send({message: 'There is a problem with your like'})

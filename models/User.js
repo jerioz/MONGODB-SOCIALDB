@@ -21,7 +21,8 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'age is required']
     },
-    likes: [],
+    followers: [{type: ObjectId, ref: 'User'}],
+    likes: [{type: ObjectId, ref: 'User'}],
     image: String,
     confirmed: Boolean,
     tokens: [],
