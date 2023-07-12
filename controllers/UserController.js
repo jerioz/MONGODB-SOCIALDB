@@ -11,7 +11,7 @@ const UserController = {
           req.body['password'] = req.body?.password ? bcrypt.hashSync(req.body.password, 10)  : null
          const user = await User.create({...req.body, confirmed:false})
          const emailToken = jwt.sign({email:req.body.email},process.env.JWT_SECRET,{expiresIn:'48h'})
-         const url = 'http://localhost:3000/users/confirm/'+ emailToken
+         const url = 'http://localhost:3001/users/confirm/'+ emailToken
          transporter.sendMail({
             to: req.body.email,
             subjet: 'confirm your register',
@@ -49,6 +49,7 @@ const UserController = {
         res.send({ message: 'Welcome ' + user.name, token, user})
        } catch (error) {
         console.error(error)
+        res.status(400).send({message: 'email or password incorrect'})
        }
     },
     async logout(req, res) {

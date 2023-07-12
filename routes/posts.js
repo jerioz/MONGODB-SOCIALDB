@@ -3,8 +3,25 @@ const router = express.Router()
 const PostController = require('../controllers/PostController')
 const { authentication, isAuthor, isAuthorComment} = require('../middlewares/authentication')
 
+const cloudinary = require('cloudinary').v2
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
+
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: "artwork"
+    }
+})
+
+cloudinary.config({ 
+    cloud_name: '', 
+    api_key: '', 
+    api_secret: '' 
+  });
+
+
 const multer = require('multer')
-const upload = multer({dest:'uploads/'})
+const upload = multer({storage})
 
 
 router.post('/newPost', authentication, PostController.newPost)

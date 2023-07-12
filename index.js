@@ -4,11 +4,13 @@ require('dotenv').config()
 const PORT = process.env.PORT || 3001;
 const swaggerUI = require('swagger-ui-express')
 const docs = require('./docs/index')
+const cors = require('cors')
 
 const { typeError } = require('./middlewares/errors')
 
 const { dbConnection } = require('./config/config')
 app.use(express.json())
+app.use(cors())
 
 dbConnection()
 

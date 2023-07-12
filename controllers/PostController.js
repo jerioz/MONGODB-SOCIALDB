@@ -95,8 +95,9 @@ const PostController =  {
     },
     async updatePostImg(req, res) {
         try {
-          const post = await Post.findByIdAndUpdate(req.params._id, {image: req.file.filename} ,{new: true})
+          const post = await Post.findByIdAndUpdate(req.params._id, {image: req.file.path} ,{new: true})
           res.send({message: 'post succesfully updated', post}) 
+          console.log(req.file)
         } catch (error) {
           console.error(error)
           res.send({message: 'There is a problem'}, error)  
